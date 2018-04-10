@@ -11,7 +11,8 @@ describe "tests del coleccionista "{
 
 
 	test "objetos fragiles" {
-		assert.equals(#{soldadoDePlomo, discoViniloLaBalsa}, coleccionista.objetosFragiles())
+		
+		assert.equals([soldadoDePlomo, discoViniloLaBalsa], coleccionista.objetosFragiles())
 	}
 
 	test "objetos fragil mas caro" {

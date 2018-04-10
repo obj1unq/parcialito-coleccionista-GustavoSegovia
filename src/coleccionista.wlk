@@ -66,9 +66,28 @@
 
 // PUNTO 1: COLECCIONES
 object coleccionista {
-	
-	//TODO: Completar la implementacion de este objeto		
+	var galeria=[]
 
+    method agregarElemento(unElemento){galeria.add(unElemento)}   //-> agrega un elemento a la galería de elementos.
+    
+    method quitarElemento(unElemento){galeria.remove(unElemento)} //-> elimina un elemento de la galería de elementos.
+    
+    method objetosFragiles(){return galeria.filter({unElemento=>unElemento.esFragil()})} //-> devuelve todos los elementos de la galeria que son frágiles.
+    
+    method objetoFragilMasCaro(){return galeria.max({unElemento=>unElemento.valor()})} //-> devuelve el objeto frágil de mayor valor.
+    
+    method valorEnObjetosFragiles(){return self.objetosFragiles().sum({unElemento=>unElemento.valor()})} //-> devuelve la suma de los valores de todos los objetos frágiles de la galería.
+    
+    method valorEnCategoria(unaCategoria){return self.elementosDe(unaCategoria).sum({unElemento=>unElemento.valor()})} //-> devuelve la suma de los valores de todos los objetos de la galería que pertenecen a la categoría dada.
+    
+    method existeElementoDe(unaCategoria){return galeria.any({unElemento=>unElemento.categoria()== unaCategoria})} //-> indica si en la galería existe algún elemento que pertenezca a la categoría dada. 
+    
+    method categorias(){return galeria.map({unElemento=>unElemento.categoria()}).asSet()} //-> devuelve todas las categorías en las cuales el coleccionista posea al menos un elemento.
+    
+    method todosValiosos(){return galeria.all({unElemento=>unElemento.valor()>600})} //-> indica si la colección sólo posee elementos valiosos. Un elemento es considerado valioso para el coleccionista si el valor supera $600
+    
+    method elementosDe(unaCategoria){return galeria.filter({unElemento=>unElemento.categoria()== unaCategoria})}
+    
 }
 
 
@@ -108,8 +127,46 @@ object musica {
 
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
-   //TODO Completar la implementacion de este objeto
+	var microfono
+	var estuche
+    method equiparMicrofono(unMicrofono){microfono=unMicrofono}
+    method agregarEstuche(unEstuche){estuche=unEstuche}
+    method valor() = 10000+microfono.valor()
+    method esFragil()= estuche.esFragil()
+    method categoria()= musica
 }
 
 //TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
+
+object microfonoGibson {
+	method valor()= 1000
+	method esFragil(){}
+	method categoria(){}
+}
+
+object microfonoDiMarzio {
+	method valor()= 800
+	method esFragil(){}
+	method categoria(){}
+}
+
+object estucheFlexible{
+	method esFragil()= true
+	method valor()=0
+	method categoria(){}
+}
+
+object estucheRigido{
+	method esFragil()= false
+	method valor()=0
+	method categoria(){}
+}
+
+
+
+
+
+
+
+
 
