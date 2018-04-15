@@ -3,7 +3,7 @@ import coleccionista.*
 describe "tests del coleccionista "{
 	
 	fixture {
-		coleccionista.agregarElementeto(soldadoDePlomo)
+		coleccionista.agregarElemento(soldadoDePlomo)
 		coleccionista.agregarElemento(cassetteCantaninio)
 		coleccionista.agregarElemento(muniecoHeman )
 		coleccionista.agregarElemento(discoViniloLaBalsa)
