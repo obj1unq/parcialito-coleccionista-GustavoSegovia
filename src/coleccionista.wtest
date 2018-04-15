@@ -3,7 +3,7 @@ import coleccionista.*
 describe "tests del coleccionista "{
 	
 	fixture {
-		coleccionista.agregarElemento(soldadoDePlomo)
+		coleccionista.agregarElementeto(soldadoDePlomo)
 		coleccionista.agregarElemento(cassetteCantaninio)
 		coleccionista.agregarElemento(muniecoHeman )
 		coleccionista.agregarElemento(discoViniloLaBalsa)
@@ -11,7 +11,13 @@ describe "tests del coleccionista "{
 
 
 	test "objetos fragiles" {
-		
+		//CORRECCION: el tesst debería mantenerse comparando con un conjunto y cambiar la implementacion
+		//del wlk para que devuelva un conjunto. Este test fallaria si el coleccionista devolviera
+		//los mismos objetos en distinto orden.
+		//Una modificiacion al test aceptable sería testear que los elementos discoVinilo y soldadoDePlomo
+		//esten incluidos en la coleccion devuelta por el coleccionista (sin identificar si es un conjunto
+		//o una lista).Pero lo más prolijo conceptualmente es manejar conjuntos, ya que concuerda más
+		//con la naturaleza del dominio. 
 		assert.equals([soldadoDePlomo, discoViniloLaBalsa], coleccionista.objetosFragiles())
 	}
 

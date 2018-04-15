@@ -1,3 +1,14 @@
+//CORRECCION: Nota: B-
+//Notas por temas:
+//Colecciones: B-
+//Polimorfismo: R
+//Test: B-
+//Resumen  de errores (ver los comentarios en el examen para entender los detalles)
+// * intentar hacer polimórficos microfonos y estuches con objetos de la galeria
+// * testear una guitarra incompleta
+// * adaptar el test para que teste lista en lugar de conjunto (está mal por el orden)
+// * objeto fragil mas caro no filtra los fragiles
+
 /*     Parcialito: Coleccionista
  * 	
  *   Se trata de una aplicación que sirve para que una persona, dueña de una galería de elementos coleccionables
@@ -66,6 +77,7 @@
 
 // PUNTO 1: COLECCIONES
 object coleccionista {
+	//CORRECCION: Mejor manejar un conjunto
 	var galeria=[]
 
     method agregarElemento(unElemento){galeria.add(unElemento)}   //-> agrega un elemento a la galería de elementos.
@@ -74,6 +86,7 @@ object coleccionista {
     
     method objetosFragiles(){return galeria.filter({unElemento=>unElemento.esFragil()})} //-> devuelve todos los elementos de la galeria que son frágiles.
     
+    //CORRECCION: Esto devuelve el objeto más caro, no el frágil más caro
     method objetoFragilMasCaro(){return galeria.max({unElemento=>unElemento.valor()})} //-> devuelve el objeto frágil de mayor valor.
     
     method valorEnObjetosFragiles(){return self.objetosFragiles().sum({unElemento=>unElemento.valor()})} //-> devuelve la suma de los valores de todos los objetos frágiles de la galería.
@@ -130,6 +143,7 @@ object guitarraElectrica {
 	var microfono
 	var estuche
     method equiparMicrofono(unMicrofono){microfono=unMicrofono}
+    //CORRECCION: El nombre de este mensaje sugiere que se puede tener varios estuches a la vez
     method agregarEstuche(unEstuche){estuche=unEstuche}
     method valor() = 10000+microfono.valor()
     method esFragil()= estuche.esFragil()
@@ -140,26 +154,26 @@ object guitarraElectrica {
 
 object microfonoGibson {
 	method valor()= 1000
-	method esFragil(){}
-	method categoria(){}
+	method esFragil(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver un booleano
+	method categoria(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver una categoria
 }
 
 object microfonoDiMarzio {
 	method valor()= 800
-	method esFragil(){}
-	method categoria(){}
+	method esFragil(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver un booleano
+	method categoria(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver una categoria
 }
 
 object estucheFlexible{
 	method esFragil()= true
-	method valor()=0
-	method categoria(){}
+	method valor()=0 //CORRECCION: No deberia entender este mensaje
+	method categoria(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver una categoria
 }
 
 object estucheRigido{
 	method esFragil()= false
-	method valor()=0
-	method categoria(){}
+	method valor()=0 //CORRECCION: No deberia entender este mensaje
+	method categoria(){} //CORRECCION: No deberia entender este mensaje, y de entenderlo debe devolver una categoria
 }
 
 

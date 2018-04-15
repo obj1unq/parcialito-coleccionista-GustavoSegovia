@@ -5,10 +5,19 @@ describe "test del coleccionista usando la guitarra"{
 		
 	fixture {
 		coleccionista.agregarElemento(guitarraElectrica)
+		//CORRECCION: Los microfonos y estuches son cosas internas de la guitarra. 
+		//CORRECCION: No forman parte de la galeria del coleccionista. 
+		//No pueden ser polimorficos porque no se sabe si un smicrofono es rigido o ni el valor de un estuche 
 		coleccionista.agregarElemento(microfonoGibson)
 		coleccionista.agregarElemento(microfonoDiMarzio)
 		coleccionista.agregarElemento(estucheFlexible)
 		coleccionista.agregarElemento(estucheRigido)
+		
+		//CORRECCION: Como la guitarra no tiene inicializadas sus variables con valores defaults, 
+		//debería inicializar aqui con un microfono y un estuche para que el objeto quede consistente para los tests.
+		// Lo más prolijo es darle valores por defecto en el .wlk.
+		// alternativamente, hubiera estado bien que en los tests se asignaran ambos valores iniciales (microfono y estuche)
+		// para que al usarlo no tengan variables nulas. No está bueno probar un objeto inconsistente
 	}
 	
 	test "categoria" {
@@ -27,12 +36,23 @@ describe "test del coleccionista usando la guitarra"{
 		assert.equals(10800, coleccionista.valorEnCategoria(musica))
 	}
 	
+	//CORRECCION: Estos dos test no andan porque el coleccionista no tiene solamente la giutarraElectrica
+	//CORRECCION: si no también cada microfono o estuche como si fueran tambien elementos coleccionables
+	//CORRECCION: Los microfonos entienden el mensaje esFragil pero no devuelven nada, en lugar de ser consultas 
+	//CORRECCION: están implementados como ordenes. Cuando el filter de objetos fragiles se encuentra con algun microfono
+	//CORRECCION: intenta usar el metodo como una pregunta y se rompe porque no le devuelve nada.
+	//CORRECCION: Hay entonces dos errores aquí: uno conceptual y otro técnico: El conceptual es que está mal intentar
+	//CORRECCION: hacer polimórficos los micrófonos y los objetos coleccionables, son cosas distintas. Un microfono no 
+	//CORRECCION: debería entender el mensaje esFragil. Lo que sí está bien es que los microfonos sean polimorficos entre si
+	//CORRECCION: con respecto a la guitarra. 
+	//CORRECCION: El error técnico es no poner el return en un método que es usado como pregunta.
+	
 	test "Fragilidad con un estuche rigido" {
 		//TODO: tal vez necesites invocar más cosas aquí para configurar la guitarra
 		guitarraElectrica.agregarEstuche(estucheRigido)
 		assert.equals(0, coleccionista.valorEnObjetosFragiles())
-	}
-	
+	} 
+	//CORRECCION: Este test no anda por el mismo motivo que el anterior
 	test "Fragilidad con un estuche flexible" {
 		//TODO: tal vez necesites invocar más cosas aquí para configurar la guitarra
 		guitarraElectrica.agregarEstuche(estucheFlexible)
